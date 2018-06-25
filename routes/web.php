@@ -26,7 +26,8 @@ Route::post('/course','AddController@AddCourse')->name('course.submit');
 Route::get('/department','AddController@showAddDepartment')->name('department');
 Route::post('/department','AddController@AddDepartment')->name('department.submit');
 Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
-Route::post('/faculty','AddController@AddFaculty')->name('faculty.submit');
+Route::post('/faculty','CommonController@postFaculty')->name('faculty.submit');
+Route::post('/deletefaculty','CommonController@deleteFaculty')->name('DeleteFaculty');
 
 Route::group(['middleware' => ['auth']], function(){
 });
