@@ -96,4 +96,15 @@ class CommonController extends Controller
         $dbvar1->save();
         return redirect('testView');
     }
+
+    public function deleteStudentCourse(Request $request)
+    {
+        
+    }
+
+    public function registeredCourse()
+    {
+        $allCourse = Course::with('faculty', 'department')->get();
+        return view('registered_courses', compact('allCourse'));
+    }
 }
