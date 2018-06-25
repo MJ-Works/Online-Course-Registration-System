@@ -1,6 +1,19 @@
-@extends('layouts.app')
+@extends('main')
 
-@section('content')
+{{-- Including  required CSS/JS/Other --}}
+
+@section('title')
+    New Course
+@endsection
+
+@section('OuterInclude')
+
+
+@endsection
+
+
+@section('ContentOfBody')
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
