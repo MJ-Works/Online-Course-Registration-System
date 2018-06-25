@@ -20,8 +20,9 @@
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 &nbsp;
+                <li><a href="{{route('allcourses')}}">Availabe Courses</a></li>
             </ul>
-
+            
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
 

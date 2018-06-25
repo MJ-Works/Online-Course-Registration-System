@@ -29,6 +29,10 @@ Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
 Route::post('/faculty','CommonController@postFaculty')->name('faculty.submit');
 Route::post('/deletefaculty','CommonController@deleteFaculty')->name('DeleteFaculty');
 
+Route::get('/allcourses', function () {
+    return view('course.course-register');
+})->name('allcourses');
+
 Route::group(['middleware' => ['auth']], function(){
 });
 
