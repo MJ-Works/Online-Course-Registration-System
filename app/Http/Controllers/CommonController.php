@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Faculty;
 use App\Department;
 use App\Course;
@@ -99,7 +100,14 @@ class CommonController extends Controller
 
     public function deleteStudentCourse(Request $request)
     {
-        
+        $studentCourse = UserCourse::where([
+            'course_id' => $request->submit,
+            'user_id' => Auth::user()->id
+        ])->first();
+
+        $studentCourse->delete();
+
+        return redirect('registeredCourses');
     }
 
     public function registeredCourse()
