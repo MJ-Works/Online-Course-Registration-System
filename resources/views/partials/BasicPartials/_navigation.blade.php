@@ -24,6 +24,11 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="{{route('faculty')}}">Faculty</a></li>
+                <li><a href="{{route('department')}}">Department</a></li>
+                <li><a href="{{route('course')}}">Course</a></li>
+                
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
