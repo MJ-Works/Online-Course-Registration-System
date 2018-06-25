@@ -17,8 +17,8 @@ class CreateDepartmentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->unsignedInteger('faculties_id');
-            $table->foreign('faculties_id')->references('id')->on('faculties')->onDelete('cascade');;
+            $table->unsignedInteger('faculty_id');
+            $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');;
             $table->timestamps();
         });
     }

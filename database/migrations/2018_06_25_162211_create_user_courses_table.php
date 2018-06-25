@@ -14,12 +14,12 @@ class CreateUserCoursesTable extends Migration
     public function up()
     {
         Schema::create('user_courses', function (Blueprint $table) {
-            $table->integer('users_id')->unsigned()->nullable();
-            $table->foreign('users_id')->references('id')
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')
                   ->on('users')->onDelete('cascade');
       
-            $table->integer('courses_id')->unsigned()->nullable();
-            $table->foreign('courses_id')->references('id')
+            $table->integer('course_id')->unsigned()->nullable();
+            $table->foreign('course_id')->references('id')
                   ->on('courses')->onDelete('cascade');
             $table->timestamps();
         });
