@@ -103,16 +103,20 @@ class CommonController extends Controller
         $studentCourse = UserCourse::where([
             'course_id' => $request->submit,
             'user_id' => Auth::user()->id
-        ])->first();
-
-        $studentCourse->delete();
+        ])->delete();
+        
+        //return $studentCourse;
 
         return redirect('registeredCourses');
     }
 
     public function registeredCourse()
     {
-        $allCourse = Course::with('faculty', 'department')->get();
+        $userCourse = UserCourse::where('user_id', Auth::user()->id)->get();
+        $courseId = array();
+        foreach($userCourse as $course)
+            array_push($courseId, $course->course_id);
+        $allCourse = Course::with('faculty', 'department')->find($courseId);
         return view('registered_courses', compact('allCourse'));
     }
 }
