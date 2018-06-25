@@ -53,8 +53,8 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'departments_id' => 'required',
-            'faculties_id' => 'required',
+            'department_id' => 'required',
+            'faculty_id' => 'required',
             'registration_number' =>  'required',
         ]);
     }
@@ -82,8 +82,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'departments_id' => $data['departments_id'],
-            'faculties_id' => $data['faculties_id'],
+            'department_id' => $data['department_id'],
+            'faculty_id' => $data['faculty_id'],
             'registration_number' => $data['registration_number'],
         ]);
     }

@@ -29,6 +29,7 @@
                 <li><a href="{{route('faculty')}}">Faculty</a></li>
                 <li><a href="{{route('department')}}">Department</a></li>
                 <li><a href="{{route('course')}}">Course</a></li>
+                <li><a href="{{route('RegisteredCourses')}}">Registered Course</a></li>
                 
                 <!-- Authentication Links -->
                 @if (Auth::guest())

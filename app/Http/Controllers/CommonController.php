@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Faculty;
 use App\Department;
 use App\Course;
@@ -10,7 +11,7 @@ use App\UserCourse;
 
 class CommonController extends Controller
 {
-    public function commmon()
+    public function allCourses()
     {
         return view('testView');
     }
@@ -59,29 +60,33 @@ class CommonController extends Controller
         return redirect('department');
     }
 
-    public function addCourse(Request $request)
+    public function postCourse(Request $request)
     {
         $this->validate($request,[
             'name' => 'required|string',
             'description' => 'required|string',
-            'faculties_id' => 'required',
-            'departments_id' => 'required',
+            'department_id' => 'required',
+            'avilable' => 'required'
         ]);
+
+        $deparment = Department::find($request->department_id);
+
         
         $dbvar = new Course();
         $dbvar->name = $request->name;
         $dbvar->description = $request->description;
         $dbvar->department_id = $request->department_id;
+        $dbvar->faculty_id = $deparment->faculty_id;
         $dbvar->avilable = $request->avilable;
         $dbvar->save();
-        return redirect('testView');
+        return redirect('course');
     }
 
     public function deleteCourse(Request $request)
     {
         $deparment = Course::find($request->submit);
         $deparment->delete();
-        return redirect('testView');
+        return redirect('course');
     }
 
     public function addUserCourse(Request $request)
@@ -93,15 +98,25 @@ class CommonController extends Controller
         return redirect('testView');
     }
 
-    public function getDepts(Request $request){
-        // return $request->all();
-         $faculty_id = $request->faculties_id;
-        $dbvar = Department::where('faculty_id',$faculty_id)->get();
-        $data='';
-        foreach($dbvar as $temp){
-            $data .= '<option value="'.$temp->id.'">'.$temp->name.'</option>';
-        }
-                
-        return $data;
+    public function deleteStudentCourse(Request $request)
+    {
+        $studentCourse = UserCourse::where([
+            'course_id' => $request->submit,
+            'user_id' => Auth::user()->id
+        ])->delete();
+        
+        //return $studentCourse;
+
+        return redirect('registeredCourses');
+    }
+
+    public function registeredCourse()
+    {
+        $userCourse = UserCourse::where('user_id', Auth::user()->id)->get();
+        $courseId = array();
+        foreach($userCourse as $course)
+            array_push($courseId, $course->course_id);
+        $allCourse = Course::with('faculty', 'department')->find($courseId);
+        return view('registered_courses', compact('allCourse'));
     }
 }

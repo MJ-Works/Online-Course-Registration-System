@@ -73,35 +73,40 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('faculties_id') ? ' has-error' : '' }}">
-                                <label for="faculties_id" class="col-md-4 control-label">Faculty</label>
+                            <div class="form-group{{ $errors->has('faculty_id') ? ' has-error' : '' }}">
+                                <label for="faculty_id" class="col-md-4 control-label">Faculty</label>
 
                                 <div class="col-md-6">
-                                    <select id = "faculties_id" name = "faculties_id" class="form-control selectpicker" title="Choose one of the following..." require>
+
+                                    <select id = "faculty_id" name = "faculty_id" class="form-control" require>
                                         @foreach($data1 as $faculties)
                                             <option value="{{$faculties->id}}">{{$faculties->name}}</option>
                                         @endforeach
                                     </select>
 
-                                    @if ($errors->has('faculties_id'))
+                                    @if ($errors->has('faculty_id'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('faculties_id') }}</strong>
+                                        <strong>{{ $errors->first('faculty_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('departments_id') ? ' has-error' : '' }}">
-                                <label for="departments_id" class="col-md-4 control-label">Department</label>
+                            <div class="form-group{{ $errors->has('department_id') ? ' has-error' : '' }}">
+                                <label for="department_id" class="col-md-4 control-label">Department</label>
 
                                 <div class="col-md-6">
-                                    <select id = "departments_id" name = "departments_id" class="form-control"  require>
+
+                                    <select id = "department_id" name = "department_id" class="form-control" require>
+                                        @foreach($data as $department)
+                                            <option value="{{$department->id}}">{{$department->name}}</option>
+                                        @endforeach
                                     </select>
                                     
 
-                                    @if ($errors->has('departments_id'))
+                                    @if ($errors->has('department_id'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('departments_id') }}</strong>
+                                        <strong>{{ $errors->first('department_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -128,15 +133,15 @@
     <script>
         $(document).ready(function(){
 
-            $("#faculties_id").change(function(){
+            $("#faculty_id").change(function(){
 
                 $.ajax({
                     type:'POST',
                     url:'<?php echo url('getdept'); ?>',
-                    data:{ faculties_id : $('#faculties_id option:selected').val(),_token :$('#csrf').val() },
+                    data:{ faculties_id : $('#faculty_id option:selected').val(),_token :$('#csrf').val() },
                     success:function(data){
                     //    alert(data);
-                        $("#departments_id").empty().append(data);
+                        $("#department_id").empty().append(data);
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         alert("Status: " + textStatus); alert("Error: " + errorThrown);
