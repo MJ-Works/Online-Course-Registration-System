@@ -12,4 +12,14 @@ class Course extends Model
         return $this->belongsToMany('App\User')
         ->withTimestamps();
     }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+
+    public function faculty()
+    {
+        return $this->belongsTo('App\Faculty');
+    }
 }

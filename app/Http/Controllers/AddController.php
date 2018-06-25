@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Faculty;
 use App\Department;
+use App\Course;
 
 class AddController extends Controller
 {
@@ -29,7 +30,9 @@ class AddController extends Controller
 
     public function showAddCourse()
     {
-        return view('All-Add.add-course');
+        $allCourse = Course::with('faculty', 'department')->get();
+        $allDepartment = Department::all();
+        return view('All-Add.add-course', compact('allCourse','allDepartment'));
     }
 
     public function AddCourse(Request $request)
