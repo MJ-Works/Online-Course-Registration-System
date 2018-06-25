@@ -18,8 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('registration_number');
+            $table->unsignedInteger('departments_id');
+            $table->unsignedInteger('faculties_id');
+            $table->string('user_type')->default("SimpleUser");
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('departments_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('faculties_id')->references('id')->on('faculties')->onDelete('cascade');
         });
     }
 
