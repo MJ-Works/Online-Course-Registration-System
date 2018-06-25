@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testView', 'CommonController@commmon')->name('Common');
 
 Route::get('/allcourses','CommonController@courses')->name('allcourses');
-
+Route::post('/getdept','CommonController@getDepts')->name('getdept');
 
 Route::group(['middleware' => ['auth']], function(){
     Route::post('/enroll','CommonController@enroll')->name('Enroll');
@@ -39,5 +39,4 @@ Route::post('/deleteDepartment','CommonController@deleteDepartment')->name('Dele
 Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
 Route::post('/faculty','CommonController@postFaculty')->name('faculty.submit');
 Route::post('/deletefaculty','CommonController@deleteFaculty')->name('DeleteFaculty');
-Route::post('/getdept','CommonController@getDepts')->name('getdept');;
 });
