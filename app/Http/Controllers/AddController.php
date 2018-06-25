@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Faculty;
+use App\Department;
 
 class AddController extends Controller
 {
@@ -14,14 +15,11 @@ class AddController extends Controller
         return view('All-Add.add-faculty', compact('allFaculty'));
     }
 
-    public function AddFaculty(Request $request)
-    {
-        return $request->all();
-    }
-
     public function showAddDepartment()
     {
-        return view('All-Add.add-dept');
+        $allFaculty = Faculty::all();
+        $allDepartment = Department::with('faculty')->get();
+        return view('All-Add.add-dept', compact('allFaculty','allDepartment'));
     }
 
     public function AddDepartment(Request $request)

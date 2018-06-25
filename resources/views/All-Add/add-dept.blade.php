@@ -24,64 +24,22 @@
                 <thead>
                 <tr>
                     <th>SL</th>
-                    <th>Dept Name</th>
-                    <th>Dept Desc</th>
+                    <th>Department Name</th>
+                    <th>Department Description</th>
                     <th>Faculty Name</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Engineering</td>
-                        <td>Engineering</td>
-                        <td>Something</td>
-                        <td><button class="btn btn-default">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Engineering</td>
-                        <td>Engineering</td>
-                        <td>Something</td>
-                        <td><button class="btn btn-default">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Engineering</td>
-                        <td>Engineering</td>
-                        <td>Something</td>
-                        <td><button class="btn btn-default">Delete</button></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Engineering</td>
-                        <td>Engineering</td>
-                        <td>Something</td>
-                        <td><button class="btn btn-default">Delete</button></td>
-                    </tr>
-
-
-                {{--@php--}}
-                    {{--$i=1--}}
-                {{--@endphp--}}
-
-                {{--@foreach($Categories as $category)--}}
-                    {{--<tr>--}}
-                        {{--<td>{{$i}}</td>--}}
-                        {{--<td>{{$category->Category}}</td>--}}
-                        {{--<td>--}}
-                            {{--<form action="#" method="post">--}}
-                                {{--{{ csrf_field() }}--}}
-                                {{--<input name="id" value="{{$category->Category}}" type="hidden" >--}}
-                                {{--<button class="btn btn-default">Delete</button>--}}
-                            {{--</form>--}}
-
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--@php--}}
-                        {{--$i+=1;--}}
-                    {{--@endphp--}}
-                {{--@endforeach--}}
+                    @foreach($allDepartment as $key=>$department)
+                        <tr>
+                        <th scope="row">{{++$key}}</th>
+                        <td>{{$department->name}}</td>
+                        <td>{{$department->description}}</td>
+                        <td>{{$department->faculty->name}}</td>
+                        <td><form class="form-horizontal" method="POST" action="{{ route('DeleteDepartment') }}">{{ csrf_field() }} <button type="submit" value = "{{$department->id}}" name="submit" class="btn btn-danger">Delete</button></form></td>
+                        </tr>
+                    @endforeach
 
                 </tbody>
             </table>
@@ -96,15 +54,10 @@
                         <div class="form-group {{ $errors->has('faculty') ? ' has-error' : '' }}">
                             <label class="col-lg-4 control-label">Faculty:</label>
                             <div class="col-lg-6">
-                                <select class="form-control" name="faculty"  required>
-                                    <option value="1">Eng</option>
-                                    <option value="1">Eng</option>
-                                    <option value="1">Eng</option>
-                                    <option value="1">Eng</option>
-                                    {{-- @foreach($Categories as $category)
-                                        <option value="{{$category->Category}}">{{$category->Category}}</option>
-                                    @endforeach --}}
-
+                                <select class="form-control" name="faculty_id"  required>
+                                    @foreach($allFaculty as $faculty)
+                                        <option value="{{$faculty->id}}">{{$faculty->name}}</option>
+                                   @endforeach
                                 </select>
                                 @if ($errors->has('faculty'))
                                     <span class="help-block">
@@ -115,19 +68,34 @@
                         </div>
 
 
-                        <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
-                            <label for="department" class="col-md-4 control-label"> New Faculty</label>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label"> New Department</label>
 
                             <div class="col-md-6">
-                                <input id="department" type="text" class="form-control" name="department" value="{{ old('faculty') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('department'))
+                                @if ($errors->has('name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('department') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="description" class="col-md-4 control-label"> Description</label>
+
+                            <div class="col-md-6">
+                                <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autofocus>
+
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

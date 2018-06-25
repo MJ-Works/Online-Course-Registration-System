@@ -41,22 +41,22 @@ class CommonController extends Controller
         $this->validate($request,[
             'name' => 'required|string',
             'description' => 'required|string',
-            'faculties_id' => 'required',
+            'faculty_id' => 'required',
         ]);
         
         $dbvar = new Department();
         $dbvar->name = $request->name;
         $dbvar->description = $request->description;
-        $dbvar->faculties_id = $request->faculties_id;
+        $dbvar->faculty_id = $request->faculty_id;
         $dbvar->save();
-        return redirect('testView');
+        return redirect('department');
     }
 
     public function deleteDepartment(Request $request)
     {
         $deparment = Department::find($request->submit);
         $deparment->delete();
-        return redirect('testView');
+        return redirect('department');
     }
 
     public function addCourse(Request $request)
@@ -71,7 +71,7 @@ class CommonController extends Controller
         $dbvar = new Course();
         $dbvar->name = $request->name;
         $dbvar->description = $request->description;
-        $dbvar->departments_id = $request->departments_id;
+        $dbvar->department_id = $request->department_id;
         $dbvar->avilable = $request->avilable;
         $dbvar->save();
         return redirect('testView');
