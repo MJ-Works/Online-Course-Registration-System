@@ -25,4 +25,11 @@ class CommonController extends Controller
         $dbvar->save();
         return redirect('testView');
     }
+
+    public function deleteFaculty(Request $request)
+    {
+        $deparment = Faculty::find($request->submit);
+        $deparment->delete();
+        return redirect('testView');
+    }
 }
