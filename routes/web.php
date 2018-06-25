@@ -30,6 +30,7 @@ Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
 Route::post('/faculty','CommonController@postFaculty')->name('faculty.submit');
 Route::post('/deletefaculty','CommonController@deleteFaculty')->name('DeleteFaculty');
 
+Route::post('/getdept','CommonController@getDepts')->name('getdept');;
 Route::get('/allcourses', function () {
     return view('course.course-register');
 })->name('allcourses');

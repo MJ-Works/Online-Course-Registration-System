@@ -21,7 +21,7 @@
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                            {{ csrf_field() }}
+                            <input type="hidden" name="_token" id="csrf" value="{{csrf_token()}}">
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
@@ -77,7 +77,7 @@
                                 <label for="faculties_id" class="col-md-4 control-label">Faculty</label>
 
                                 <div class="col-md-6">
-                                    <select id = "faculties_id" name = "faculties_id" class="form-control" require>
+                                    <select id = "faculties_id" name = "faculties_id" class="form-control selectpicker" title="Choose one of the following..." require>
                                         @foreach($data1 as $faculties)
                                             <option value="{{$faculties->id}}">{{$faculties->name}}</option>
                                         @endforeach
@@ -95,11 +95,9 @@
                                 <label for="departments_id" class="col-md-4 control-label">Department</label>
 
                                 <div class="col-md-6">
-                                    <select id = "departments_id" name = "departments_id" class="form-control" require>
-                                        @foreach($data as $department)
-                                            <option value="{{$department->id}}">{{$department->name}}</option>
-                                        @endforeach
+                                    <select id = "departments_id" name = "departments_id" class="form-control"  require>
                                     </select>
+                                    
 
                                     @if ($errors->has('departments_id'))
                                         <span class="help-block">
@@ -127,4 +125,24 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+
+            $("#faculties_id").change(function(){
+
+                $.ajax({
+                    type:'POST',
+                    url:'<?php echo url('getdept'); ?>',
+                    data:{ faculties_id : $('#faculties_id option:selected').val(),_token :$('#csrf').val() },
+                    success:function(data){
+                    //    alert(data);
+                        $("#departments_id").empty().append(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                    }
+                });
+            });
+        })
+    </script>
 @endsection
