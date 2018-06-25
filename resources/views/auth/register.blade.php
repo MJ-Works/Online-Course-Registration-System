@@ -21,7 +21,7 @@
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                            {{ csrf_field() }}
+                            <input type="hidden" name="_token" id="csrf" value="{{csrf_token()}}">
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Name</label>
@@ -77,7 +77,8 @@
                                 <label for="faculty_id" class="col-md-4 control-label">Faculty</label>
 
                                 <div class="col-md-6">
-                                    <select id = "faculty_id" name = "faculty_id" class="form-control" require>
+
+                                    <select id = "faculty_id" name = "faculty_id" class="form-control selectpicker" title="Choose one of the following..." require>
                                         @foreach($data1 as $faculties)
                                             <option value="{{$faculties->id}}">{{$faculties->name}}</option>
                                         @endforeach
@@ -95,11 +96,11 @@
                                 <label for="department_id" class="col-md-4 control-label">Department</label>
 
                                 <div class="col-md-6">
+
                                     <select id = "department_id" name = "department_id" class="form-control" require>
-                                        @foreach($data as $department)
-                                            <option value="{{$department->id}}">{{$department->name}}</option>
-                                        @endforeach
+                                       
                                     </select>
+                                    
 
                                     @if ($errors->has('department_id'))
                                         <span class="help-block">
@@ -127,4 +128,24 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+
+            $("#faculty_id").change(function(){
+                // alert($('#faculty_id option:selected').val());
+                $.ajax({
+                    type:'POST',
+                    url:'<?php echo url('getdept'); ?>',
+                    data:{ faculties_id : $('#faculty_id option:selected').val(),_token :$('#csrf').val() },
+                    success:function(data){
+                    //    alert(data);
+                        $("#department_id").empty().append(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                    }
+                });
+            });
+        })
+    </script>
 @endsection

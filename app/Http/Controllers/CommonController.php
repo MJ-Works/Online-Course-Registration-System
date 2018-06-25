@@ -124,6 +124,7 @@ class CommonController extends Controller
         return view('registered_courses', compact('allCourse'));
     }
 
+
     public function courses()
     {
         $courses = Course::all();
@@ -152,4 +153,16 @@ class CommonController extends Controller
 
         return redirect('registeredCourses');
     }
+
+    public function getDepts(Request $request){
+        // return $request->all();
+          $faculty_id = $request->faculties_id;
+         $dbvar = Department::where('faculty_id',$faculty_id)->get();
+         $data='';
+         foreach($dbvar as $temp){
+             $data .= '<option value="'.$temp->id.'">'.$temp->name.'</option>';
+         }
+                 
+         return $data;
+        }
 }

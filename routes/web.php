@@ -39,5 +39,5 @@ Route::post('/deleteDepartment','CommonController@deleteDepartment')->name('Dele
 Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
 Route::post('/faculty','CommonController@postFaculty')->name('faculty.submit');
 Route::post('/deletefaculty','CommonController@deleteFaculty')->name('DeleteFaculty');
-
+Route::post('/getdept','CommonController@getDepts')->name('getdept');;
 });
