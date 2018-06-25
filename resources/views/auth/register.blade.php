@@ -78,7 +78,7 @@
 
                                 <div class="col-md-6">
 
-                                    <select id = "faculty_id" name = "faculty_id" class="form-control" require>
+                                    <select id = "faculty_id" name = "faculty_id" class="form-control selectpicker" title="Choose one of the following..." require>
                                         @foreach($data1 as $faculties)
                                             <option value="{{$faculties->id}}">{{$faculties->name}}</option>
                                         @endforeach
@@ -98,9 +98,7 @@
                                 <div class="col-md-6">
 
                                     <select id = "department_id" name = "department_id" class="form-control" require>
-                                        @foreach($data as $department)
-                                            <option value="{{$department->id}}">{{$department->name}}</option>
-                                        @endforeach
+                                       
                                     </select>
                                     
 
@@ -134,7 +132,7 @@
         $(document).ready(function(){
 
             $("#faculty_id").change(function(){
-
+                // alert($('#faculty_id option:selected').val());
                 $.ajax({
                     type:'POST',
                     url:'<?php echo url('getdept'); ?>',

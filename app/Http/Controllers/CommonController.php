@@ -119,4 +119,16 @@ class CommonController extends Controller
         $allCourse = Course::with('faculty', 'department')->find($courseId);
         return view('registered_courses', compact('allCourse'));
     }
+
+    public function getDepts(Request $request){
+        // return $request->all();
+          $faculty_id = $request->faculties_id;
+         $dbvar = Department::where('faculty_id',$faculty_id)->get();
+         $data='';
+         foreach($dbvar as $temp){
+             $data .= '<option value="'.$temp->id.'">'.$temp->name.'</option>';
+         }
+                 
+         return $data;
+        }
 }
