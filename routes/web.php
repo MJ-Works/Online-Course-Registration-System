@@ -21,6 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/testView', 'CommonController@commmon')->name('Common');
 Route::post('/postFaculty', 'CommonController@postFaculty')->name('PostFaculty');
 
+Route::get('/course','AddController@showAddCourse')->name('course');
+Route::post('/course','AddController@AddCourse')->name('course.submit');
+Route::get('/department','AddController@showAddDepartment')->name('department');
+Route::post('/department','AddController@AddDepartment')->name('department.submit');
+Route::get('/faculty','AddController@showAddFaculty')->name('faculty');
+Route::post('/faculty','AddController@AddFaculty')->name('faculty.submit');
+
 Route::group(['middleware' => ['auth']], function(){
 });
 
