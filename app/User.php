@@ -27,6 +27,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course')
+        ->withTimestamps();
+    }
+
     public function isAdmin(){
         return $this->user_type == 'Admin';
     }

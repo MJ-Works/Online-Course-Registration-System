@@ -18,6 +18,8 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('avilable');
+            $table->unsignedInteger('departments_id');
+            $table->foreign('departments_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

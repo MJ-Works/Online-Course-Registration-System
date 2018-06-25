@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Faculty;
+use App\Department;
+use App\Course;
+use App\UserCourse;
 
 class CommonController extends Controller
 {
@@ -28,8 +31,65 @@ class CommonController extends Controller
 
     public function deleteFaculty(Request $request)
     {
-        $deparment = Faculty::find($request->submit);
+        $faculty = Faculty::find($request->submit);
+        $faculty->delete();
+        return redirect('testView');
+    }
+
+    public function postDepartment(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'faculties_id' => 'required',
+        ]);
+        
+        $dbvar = new Department();
+        $dbvar->name = $request->name;
+        $dbvar->description = $request->description;
+        $dbvar->faculties_id = $request->faculties_id;
+        $dbvar->save();
+        return redirect('testView');
+    }
+
+    public function deleteDepartment(Request $request)
+    {
+        $deparment = Department::find($request->submit);
         $deparment->delete();
+        return redirect('testView');
+    }
+
+    public function addCourse(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'faculties_id' => 'required',
+            'departments_id' => 'required',
+        ]);
+        
+        $dbvar = new Course();
+        $dbvar->name = $request->name;
+        $dbvar->description = $request->description;
+        $dbvar->departments_id = $request->departments_id;
+        $dbvar->avilable = $request->avilable;
+        $dbvar->save();
+        return redirect('testView');
+    }
+
+    public function deleteCourse(Request $request)
+    {
+        $deparment = Course::find($request->submit);
+        $deparment->delete();
+        return redirect('testView');
+    }
+
+    public function addUserCourse(Request $request)
+    {
+        $dbvar1 = new UserCourse();
+        $dbvar1->users_id = Auth::user()->id;
+        $dbvar1->tags_id = $request->courses_id;
+        $dbvar1->save();
         return redirect('testView');
     }
 }
