@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/testView', 'CommonController@commmon')->name('Common');
+Route::post('/postFaculty', 'CommonController@postFaculty')->name('PostFaculty');
 
 Route::group(['middleware' => ['auth']], function(){
 });
