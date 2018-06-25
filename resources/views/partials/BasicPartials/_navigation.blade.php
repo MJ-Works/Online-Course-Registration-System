@@ -25,11 +25,15 @@
             
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
+                @if(Auth::check() && Auth::user()->user_type == "Admin")
+                    <li><a href="{{route('faculty')}}">Faculty</a></li>
+                    <li><a href="{{route('department')}}">Department</a></li>
+                    <li><a href="{{route('course')}}">Course</a></li>
+                @endif
 
-                <li><a href="{{route('faculty')}}">Faculty</a></li>
-                <li><a href="{{route('department')}}">Department</a></li>
-                <li><a href="{{route('course')}}">Course</a></li>
+                @auth
                 <li><a href="{{route('RegisteredCourses')}}">Registered Course</a></li>
+                @endauth
                 
                 <!-- Authentication Links -->
                 @if (Auth::guest())

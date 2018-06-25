@@ -84,8 +84,8 @@ class CommonController extends Controller
 
     public function deleteCourse(Request $request)
     {
-        $deparment = Course::find($request->submit);
-        $deparment->delete();
+        $course = Course::find($request->submit);
+        $course->delete();
         return redirect('course');
     }
 
@@ -104,6 +104,10 @@ class CommonController extends Controller
             'course_id' => $request->submit,
             'user_id' => Auth::user()->id
         ])->delete();
+
+        $course = Course::find($request->submit);
+        $course->avilable++;
+        $course->save();
         
         //return $studentCourse;
 
@@ -118,5 +122,34 @@ class CommonController extends Controller
             array_push($courseId, $course->course_id);
         $allCourse = Course::with('faculty', 'department')->find($courseId);
         return view('registered_courses', compact('allCourse'));
+    }
+
+    public function courses()
+    {
+        $courses = Course::all();
+        return view('course.course-register', compact('courses'));
+    }
+
+    public function enroll(Request $request)
+    {
+        $studentCourse = UserCourse::where([
+            'course_id' => $request->submit,
+            'user_id' => Auth::user()->id
+        ])->get();
+
+        if($studentCourse->count()) return redirect('registeredCourses');
+
+        $dbvar = new UserCourse();
+        $dbvar->course_id = $request->submit;
+        $dbvar->user_id = Auth::user()->id;
+        $dbvar->save();
+
+        $course = Course::find($request->submit);
+        $course->avilable--;
+        $course->save();
+        
+        //return $studentCourse;
+
+        return redirect('registeredCourses');
     }
 }

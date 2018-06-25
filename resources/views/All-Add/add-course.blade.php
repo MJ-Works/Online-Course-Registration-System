@@ -24,6 +24,7 @@
                     <tr>
                         <th>SL</th>
                         <th>Course Name</th>
+                        <th>Sit aviable</th>
                         <th>Course Description</th>
                         <th>Department Name</th>
                         <th>Faculty Name</th>
@@ -35,6 +36,7 @@
                             <tr>
                             <th scope="row">{{++$key}}</th>
                             <td>{{$course->name}}</td>
+                            <td>{{$course->avilable}}</td>
                             <td>{{$course->description}}</td>
                             <td>{{$course->department->name}}</td>
                             <td>{{$course->faculty->name}}</td>
