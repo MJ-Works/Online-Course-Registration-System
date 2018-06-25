@@ -8,13 +8,15 @@
 @endsection
 
 @section('OuterInclude')
-
-
+<link href="{{ asset('css/AdminAdd.css') }}" rel="stylesheet">
 @endsection
 
 
 @section('ContentOfBody')
 <div class="container">
+        <div class=" col-sm-12 pro_head clearfix">
+            <h2> <strong>Add</strong> Course</h2>
+        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
