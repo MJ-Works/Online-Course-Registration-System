@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Faculty;
 
 class AddController extends Controller
 {
     //
     public function showAddFaculty()
     {
-        return view('All-Add.add-faculty');
+        $allFaculty = Faculty::all();
+        return view('All-Add.add-faculty', compact('allFaculty'));
     }
 
     public function AddFaculty(Request $request)
