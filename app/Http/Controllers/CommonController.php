@@ -128,7 +128,10 @@ class CommonController extends Controller
     public function courses()
     {
         $courses = Course::all();
-        return view('course.course-register', compact('courses'));
+        $data1 = Faculty::all();
+        // return $faculties;
+
+        return view('course.course-register', compact('courses','data1'));
     }
 
     public function enroll(Request $request)
