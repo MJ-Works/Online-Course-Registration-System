@@ -159,7 +159,7 @@ class CommonController extends Controller
 
     public function getDepts(Request $request){
         // return $request->all();
-          $faculty_id = $request->faculties_id;
+         $faculty_id = $request->faculties_id;
          $dbvar = Department::where('faculty_id',$faculty_id)->get();
          $data='';
          foreach($dbvar as $temp){
@@ -168,4 +168,18 @@ class CommonController extends Controller
                  
          return $data;
         }
+
+    public function getCourses(Request $request){
+        // return $request->all();
+        $faculty_id = $request->faculties_id;
+        $depart_id = $request->depart_id;
+
+        if($depart_id == null)
+         $courses = Course::where('faculty_id',$faculty_id)->get();
+        else
+            $courses = Course::where('department_id',$depart_id)->get();
+
+        return view('course.search-course', compact('courses'));
+
+    }
 }

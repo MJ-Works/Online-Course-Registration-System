@@ -82,25 +82,25 @@
                     }
                 });
             });
+
             $("#search").click(function(){
                 var fac_val= $('#faculty_id option:selected').val();
                 if(fac_val != "" )
                 {
                     $.ajax({
                     type:'POST',
-                    url:'<?php echo url('getdept'); ?>',
-                    data:{ faculties_id : $('#faculty_id option:selected').val(),_token :$('#csrf').val() },
+                    url:'<?php echo url('getcourse'); ?>',
+                    data:{ faculties_id : $('#faculty_id option:selected').val(),depart_id : $('#department_id option:selected').val(),_token :$('#csrf').val() },
                     success:function(data){
-                    //    alert(data);
-                    if(data == null || data == '') data='<option value="">N/A</option>';
-                        $("#department_id").empty().append(data);
+                       // alert(data);
+                       $("#CourseContent").html(data);
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         alert("Status: " + textStatus); alert("Error: " + errorThrown);
                     }
                 });
                 }
-               alert('Okk'); 
+                
             });
         })
     </script>

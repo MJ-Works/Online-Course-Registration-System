@@ -22,6 +22,8 @@ Route::get('/testView', 'CommonController@commmon')->name('Common');
 
 Route::get('/allcourses','CommonController@courses')->name('allcourses');
 Route::post('/getdept','CommonController@getDepts')->name('getdept');
+Route::post('/getcourse','CommonController@getCourses')->name('getcourse');
+
 
 Route::group(['middleware' => ['auth']], function(){
     Route::post('/enroll','CommonController@enroll')->name('Enroll');
