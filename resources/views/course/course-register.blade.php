@@ -87,12 +87,15 @@
                 var fac_val= $('#faculty_id option:selected').val();
                 if(fac_val != "" )
                 {
+                    $("#CourseContent").html('<div class="col-sm-12 well"> <div align="center" ><br><br><br><br><br><div class="loader"></div><br><br><br><br><br></div></div>');
+
                     $.ajax({
                     type:'POST',
                     url:'<?php echo url('getcourse'); ?>',
                     data:{ faculties_id : $('#faculty_id option:selected').val(),depart_id : $('#department_id option:selected').val(),_token :$('#csrf').val() },
                     success:function(data){
                        // alert(data);
+                        if(data == null || data=="") data='<div class=" col-sm-12 well text-center" style="padding: 40px;"> <h1 class="alert alert-info">No Content</h1></div>';
                        $("#CourseContent").html(data);
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
